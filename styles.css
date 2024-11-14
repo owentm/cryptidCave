@@ -1,6 +1,6 @@
-.logging-body {
+body {
     background-color: #0f0f0f;
-    color: #1e1e1e;
+    color: red;
 }
 
 .flex-container {
@@ -16,4 +16,18 @@ img {
     filter: brightness(150%);
     height:100%;
     width:auto;
+}
+
+button {
+    background-color: black;
+    color:red;
+}
+
+input, select, textarea {
+    background-color: gray;
+    color: red;
+}
+
+input [type="file"] {
+    display: none;
 }
