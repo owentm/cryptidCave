@@ -1,0 +1,19 @@
+.logging-body {
+    background-color: #0f0f0f;
+    color: #1e1e1e;
+}
+
+.flex-container {
+    display: flex;
+}
+
+h1, label {
+    color: red;
+}
+
+img {
+    justify-content:center;
+    filter: brightness(150%);
+    height:100%;
+    width:auto;
+}
