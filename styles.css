@@ -27,7 +27,3 @@ input, select, textarea {
     background-color: gray;
     color: red;
 }
-
-input [type="file"] {
-    display: none;
-}
