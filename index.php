@@ -8,6 +8,6 @@
 <body>
 <h2> I want to... </h2>
 <a href="logging.php"><button> Log a sighting </button></a>
-<a href="viewing.html"><button> Browse sightings </button></a>
+<a href="viewing.php"><button> Browse sightings </button></a>
 </body>
 </html>

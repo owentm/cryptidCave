@@ -9,7 +9,7 @@
 	
 	//Connecting to the Cryptids database
 	try {
-		$connectString = "mysql:host=$DB_HOST;port=3306;dbname=$DB_NAME";
+		$connectString = "mysql:host=$DB_HOST;port=3305;dbname=$DB_NAME";
 		$pdoSighting = new PDO($connectString, $DB_USER, $DB_PASS);
 	}
 	catch (PDOException $e) { //Exception handling for database not found
@@ -55,6 +55,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cryptid Cave Logging</title>
+    <h2><a href="index.php"><button> Go home </button></a></h2>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
