@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Crypid Cave Home</title>
     <h1>Welcome to Crypid Cave!</h1>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <h2> I want to... </h2>
