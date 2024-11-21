@@ -17,17 +17,44 @@
 		die($e->getMessage());
 	}
 	
+	//Changing file location
+	$path = ""; //Initializing new file path variable for later use
+	
+	if($_FILES['image']['error'] == 0) { //Checking to ensure a file was uploaded without error
+		$fname = $_FILES['image']['name'];
+		$ftemp = $_FILES['image']['tmp_name'];
+		
+		//Ensuring files with similar names will not be overwritten
+		$append = 0;
+		$filesplit = "";
+		
+		//Splitting file name and extension apart in order to create unique file name below
+		if(file_exists("uploads/" . basename($fname))) {
+			$filesplit = explode(".", $fname);
+		}
+		
+		//Continue updating file name until unique name found
+		while(file_exists("uploads/" . basename($fname))) {
+			//Appending new suffix number each time file names conflict
+			$append += 1;
+			$namesplit = $filesplit[0];
+			$fname = $namesplit . "(" . $append . ")" . "." . $filesplit[1]; //Recreating file name with extension
+		}
+		
+		//Creating new filepath, moving uploaded file to set location
+		$path = "uploads/" . basename($fname);
+		move_uploaded_file($ftemp, $path);
+	}
+	
 	//Updating sightings table if any new sightings have been logged
 	if(isset($_POST['submitSighting'])) {
 		//Base query string for inserting 4 values into sighting_table
 		$query = "INSERT INTO sighting_table (creature_name, summary, date_sighted, time_of_day) VALUES (?, ?, ?, ?)";
 		
-		//Adding another value if an image is provided
-		/*
-		if(isset($_POST['image'])) {
+		//Adding another value if an image was submitted
+		if($_FILES['image']['error'] == 0) {
 			$query = "INSERT INTO sighting_table (creature_name, summary, date_sighted, time_of_day, image) VALUES (?, ?, ?, ?, ?)";
 		}
-		*/
 	
 		//Binding user-entered data to values to be inserted into sighting_table
 		$statement = $pdoSighting->prepare($query);
@@ -36,18 +63,16 @@
 		$statement->bindValue(3, $_POST['dateFound'], PDO::PARAM_STR); //Date
 		$statement->bindValue(4, $_POST['timesight'], PDO::PARAM_STR); //Time of day
 		
-		//Binding image to value if image submitted
-		/*
-		if(isset($_POST['image'])) {
-			$statement->bindValue(5, $_POST['image'], PDO::PARAM_LOB);
+		//Binding image to value if an image was submitted
+		if($_FILES['image']['error'] == 0) {
+			$statement->bindValue(5, $path, PDO::PARAM_STR);
 		}
-		*/
 		
 		$statement->execute();
 	}
 	
 	//Closing PDO object
-	$pdo = null;
+	$pdoSighting = null;
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +87,7 @@
     <div class="flex-container">
         <div>
             <h1>Log A Sighting</h1>
-			<form id="sightingLog" method="post">
+			<form id="sightingLog" action="logging.php" method="post" enctype="multipart/form-data">
 				<label for="creaturelog">Name of creature:</label>
 				<br>
 				<input type="text" id="creaturelog" name="creature">
