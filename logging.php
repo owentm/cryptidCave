@@ -140,12 +140,16 @@
 				//Performing Javascript input validation
 				const formElement = document.querySelector("#sightingLog");
 				
+				//Array of supported file extensions
+				const validImageExt = ["png", "jpg", "jpeg", "jfif", "pjpeg", "pjp", "webp", "avif", "svg", "ico", "cur"];
+				
 				//Upon form submission, check to ensure certain fields were filled out
 				formElement.addEventListener("submit", function (e) {
 					//Finding value of each field after "Submit sighting" button is pressed
 					let cname = document.querySelector("#creaturelog").value
 					let cdate = document.querySelector("#datefound").value
 					let ctime = document.querySelector("#timesight").value
+					let cfile = document.querySelector("#imageofcreature").value;
 					let cdesc = document.querySelector("#descriptionofevent").value
 					
 					//Alerting user to fill out any blank fields and canceling submit action
@@ -171,6 +175,16 @@
 						alert("Please enter a short description of the event.");
 						e.preventDefault();
 						return;
+					}
+					
+					//Alerting user to upload an image with a supported file extension
+					if(!(cfile === "" || cfile === null)) {
+						let fileExt = cfile.split("."); //Splitting file extension from file name
+						if(!validImageExt.includes(fileExt[fileExt.length - 1].toLowerCase())) {
+							alert("Please upload an image with a supported file type.");
+							e.preventDefault();
+							return;
+						}
 					}
 				});
 			</script>
