@@ -109,7 +109,7 @@
 				<label for="timesight">Time of day seen:</label>
 				<br>
 				<select name="timesight" id="timesight" form="sightingLog">
-					<option value="Early morning">Early morning</option>
+					<option value="Early morning" selected="selected">Early morning</option>
 					<option value="Morning">Morning</option>
 					<option value="Noon">Noon</option>
 					<option value="Evening">Evening</option>
@@ -135,6 +135,46 @@
 
 				<input type="submit" id="creaturesubmit" value="Submit sighting" name="submitSighting">
 			</form>
+			
+			<script>
+				//Performing Javascript input validation
+				const formElement = document.querySelector("#sightingLog");
+				
+				//Upon form submission, check to ensure certain fields were filled out
+				formElement.addEventListener("submit", function (e) {
+					//Finding value of each field after "Submit sighting" button is pressed
+					let cname = document.querySelector("#creaturelog").value
+					let cdate = document.querySelector("#datefound").value
+					let ctime = document.querySelector("#timesight").value
+					let cdesc = document.querySelector("#descriptionofevent").value
+					
+					//Alerting user to fill out any blank fields and canceling submit action
+					if (cname === "" || cname === null) {
+						alert("Please enter creature name.");
+						e.preventDefault();
+						return;
+					}
+					
+					if (cdate === "" || cdate === null) {
+						alert("Please enter date seen.");
+						e.preventDefault();
+						return;
+					}
+					
+					if (ctime === "" || ctime === null) {
+						alert("Please select time of day seen.");
+						e.preventDefault();
+						return;
+					}
+					
+					if (cdesc === "" || cdesc === null) {
+						alert("Please enter a short description of the event.");
+						e.preventDefault();
+						return;
+					}
+				});
+			</script>
+			
             </div>
             <div>
             <img src="neuteredlilguy.png">
