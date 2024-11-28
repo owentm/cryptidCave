@@ -54,11 +54,11 @@
 	//Updating sightings table if any new sightings have been logged
 	if(isset($_POST['submitSighting'])) {
 		//Base query string for inserting 4 values into sighting_table
-		$query = "INSERT INTO sighting_table (creature_name, summary, date_sighted, time_of_day) VALUES (?, ?, ?, ?)";
+		$query = "INSERT INTO admin_table (creature_name, summary, date_sighted, time_of_day) VALUES (?, ?, ?, ?)";
 		
-		//Adding another value if an image was submitted
+		//Adding another value if an image was submitted without error
 		if($_FILES['image']['error'] == 0) {
-			$query = "INSERT INTO sighting_table (creature_name, summary, date_sighted, time_of_day, image) VALUES (?, ?, ?, ?, ?)";
+			$query = "INSERT INTO admin_table (creature_name, summary, date_sighted, time_of_day, image) VALUES (?, ?, ?, ?, ?)";
 		}
 	
 		//Binding user-entered data to values to be inserted into sighting_table
