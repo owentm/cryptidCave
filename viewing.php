@@ -28,42 +28,68 @@
 		die($e->getMessage());
 	}
 
-	$sql = "SELECT * FROM sighting_table";
+	$sql = "SELECT DISTINCT creature_name FROM sighting_table";
 	$sightingData = $pdoViewing->query($sql);
 	$sightings = $sightingData->fetchAll(PDO::FETCH_ASSOC);
-    $names = array();
-    $names[] = "ooohhh";
-    $names[] = "ahhhhh";
-    echo "$names[0]";
-    foreach($sightings as $nameCheck)
-    {
-        if(in_array($nameCheck['creature_name'], $names)
-        {
 
+
+?>
+<form method="POST">
+<select name="creatureSelect">
+    <option value = "Select" selected> - </option>
+   <?php foreach($sightings as $name): ?>
+        <option value="<?php echo $name['creature_name']; ?>">
+        <?php echo $name['creature_name']; ?>
+        </option>
+        <?php endforeach; ?>
+   <option value = "View all"> View all </option>
+</select>
+<input type="submit" value="Submit">
+</form>
+<?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST')
+    {
+        $displayCreature = htmlspecialchars($_POST["creatureSelect"]);
+
+
+        if($displayCreature == "Select")
+        {
+            echo "<p>Please select a creature.</p>";
+        }
+        elseif($displayCreature == "View all")
+        {
+            $sql = "SELECT * FROM sighting_table ORDER BY sighting_id DESC";
+            $sightingDataDisplay = $pdoViewing->query($sql);
+            $sightingDisplay = $sightingDataDisplay->fetchAll(PDO::FETCH_ASSOC);
+            foreach($sightingDisplay as $sighting)
+            {
+                echo $sighting['creature_name']. "<br><br>". $sighting['summary']. "<br><br>". $sighting['date_sighted'];
+                echo $sighting['time_of_day']. "<br><br>". $sighting['image'];
+
+            }
         }
         else
         {
-            $names[] = $sighting['creature_name']
+            $sql = "SELECT * FROM sighting_table WHERE creature_name='{$displayCreature}'";
+            $sightingDataDisplay = $pdoViewing->query($sql);
+            $sightingDisplay = $sightingDataDisplay->fetchAll(PDO::FETCH_ASSOC);
+            foreach($sightingDisplay as $sighting)
+            {
+                echo $sighting['creature_name']. "<br><br>". $sighting['summary']. "<br><br>". $sighting['date_sighted'];
+                echo $sighting['time_of_day']. "<br><br>". $sighting['image'];
+
+            }
         }
+
     }
 
 
-	foreach($sightings as $sighting)
-	{
-	    if($sighting['creature_name'] == $names[$sighting])
-	    {
-	        $tempName = $sighting['creature_name'];
-	        $tempDate = $sighting['date_sighted'];
-	        $tempSumm = $sighting['summary'];
-	        $tempTime = $sighting['time_of_day'];
-	        $tempImg = $sighting['image'];
-	        echo "$tempName". "<br>". "$tempDate". "<br>". "$tempSumm". "<br>". "$tempTime". "<br>". "$tempImg";
-	    }
 
-	}
+
+
 
     $pdoViewing = null;
-
 ?>
+
 </body>
 </html>
