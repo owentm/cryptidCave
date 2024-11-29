@@ -20,20 +20,22 @@
 	//Connecting to the Cryptids database
 	try
 	{
-		$connectString = "mysql:host=$DB_HOST;port=3305;dbname=$DB_NAME";
+		$connectString = "mysql:host=$DB_HOST;port=3306;dbname=$DB_NAME";
 		$pdoViewing = new PDO($connectString, $DB_USER, $DB_PASS);
 	}
 	catch (PDOException $e) { //Exception handling for database not found
 		echo "Database connection unsuccessful.<br>";
 		die($e->getMessage());
 	}
-
+    // Starting here by getting all of the unique creature names from the curated sightings list
 	$sql = "SELECT DISTINCT creature_name FROM sighting_table";
 	$sightingData = $pdoViewing->query($sql);
 	$sightings = $sightingData->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
+<!-- Now, make a form that accepts a user to select which from the existing list of creatures they want to
+look at. -->
 <form method="POST">
 <select name="creatureSelect">
     <option value = "Select" selected> - </option>
@@ -47,27 +49,40 @@
 <input type="submit" value="Submit">
 </form>
 <?php
+    // Receive the input, which will always be in the database as it only outputs creatures in the database
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
         $displayCreature = htmlspecialchars($_POST["creatureSelect"]);
 
-
+        // First check for the base condition, which will be the case on loading the website for the first time.
         if($displayCreature == "Select")
         {
             echo "<p>Please select a creature.</p>";
         }
+
+        // Then check to see if the display all is selected
         elseif($displayCreature == "View all")
         {
+            // If it is, select all and sort by the order in which the sightings were logged, most to least recent
             $sql = "SELECT * FROM sighting_table ORDER BY sighting_id DESC";
             $sightingDataDisplay = $pdoViewing->query($sql);
             $sightingDisplay = $sightingDataDisplay->fetchAll(PDO::FETCH_ASSOC);
+
+            // At the end of each diaply, there's a line break so that the two entries don't get mixed up
             foreach($sightingDisplay as $sighting)
             {
                 echo $sighting['creature_name']. "<br><br>". $sighting['summary']. "<br><br>". $sighting['date_sighted'];
-                echo $sighting['time_of_day']. "<br><br>". $sighting['image'];
+                echo "<br><br>". $sighting['time_of_day']. "<br><br>";
+                if(!empty($sighting['image']))
+                {
+                    echo '<img src="data:image/jpeg;base64,'.base64_encode($sighting['image']).'"/>'. "<br><br>";
+                }
 
             }
         }
+
+        // Finally, to catch everything else, search the table for only the creatures who have that name. The
+        // internal logic is mostly the same.
         else
         {
             $sql = "SELECT * FROM sighting_table WHERE creature_name='{$displayCreature}'";
@@ -76,7 +91,11 @@
             foreach($sightingDisplay as $sighting)
             {
                 echo $sighting['creature_name']. "<br><br>". $sighting['summary']. "<br><br>". $sighting['date_sighted'];
-                echo $sighting['time_of_day']. "<br><br>". $sighting['image'];
+                echo "<br><br>". $sighting['time_of_day']. "<br><br>";
+                if(isset($sighting['image']))
+                {
+                    echo '<img src="data:image/jpeg;base64,'.base64_encode($sighting['image']).'"/>'. "<br><br>";
+                }
 
             }
         }
