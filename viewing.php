@@ -20,7 +20,7 @@
 	//Connecting to the Cryptids database
 	try
 	{
-		$connectString = "mysql:host=$DB_HOST;port=3306;dbname=$DB_NAME";
+		$connectString = "mysql:host=$DB_HOST;port=3305;dbname=$DB_NAME";
 		$pdoViewing = new PDO($connectString, $DB_USER, $DB_PASS);
 	}
 	catch (PDOException $e) { //Exception handling for database not found
@@ -68,15 +68,21 @@ look at. -->
             $sightingDataDisplay = $pdoViewing->query($sql);
             $sightingDisplay = $sightingDataDisplay->fetchAll(PDO::FETCH_ASSOC);
 
-            // At the end of each diaply, there's a line break so that the two entries don't get mixed up
+            // At the end of each display, there's a line break so that the two entries don't get mixed up
             foreach($sightingDisplay as $sighting)
             {
-                echo $sighting['creature_name']. "<br><br>". $sighting['summary']. "<br><br>". $sighting['date_sighted'];
-                echo "<br><br>". $sighting['time_of_day']. "<br><br>";
-                if(!empty($sighting['image']))
-                {
-                    echo '<img src="data:image/jpeg;base64,'.base64_encode($sighting['image']).'"/>'. "<br><br>";
-                }
+                // Have conditionals for each entry to make sure that if a user didn't enter something, everything is
+                // still formatted correctly
+                echo "Creature name: <br>";
+                echo (isset($sighting['creature_name'])) ? $sighting['creature_name']."<br><br>" : "N/A <br><br>";
+                echo "Summary of sighting: <br>";
+                echo (isset($sighting['summary'])) ? $sighting['summary']."<br><br>" : "N/A <br><br>";
+                echo "Date sighted: <br>";
+                echo (isset($sighting['date_sighted'])) ? $sighting['date_sighted']."<br><br>" : "N/A <br><br>";
+                echo "Time sighted: <br>";
+                echo (isset($sighting['time_of_day'])) ? $sighting['time_of_day']."<br><br>" : "N/A <br><br>";
+                echo "Images: <br>";
+                echo (isset($sighting['image'])) ? '<img src="data:image/jpeg;base64,'.base64_encode($sighting['image']).'"/>'. "<br><br>" : "N/A";
 
             }
         }
@@ -90,13 +96,16 @@ look at. -->
             $sightingDisplay = $sightingDataDisplay->fetchAll(PDO::FETCH_ASSOC);
             foreach($sightingDisplay as $sighting)
             {
-                echo $sighting['creature_name']. "<br><br>". $sighting['summary']. "<br><br>". $sighting['date_sighted'];
-                echo "<br><br>". $sighting['time_of_day']. "<br><br>";
-                if(isset($sighting['image']))
-                {
-                    echo '<img src="data:image/jpeg;base64,'.base64_encode($sighting['image']).'"/>'. "<br><br>";
-                }
-
+                echo "Creature name: <br>";
+                echo (isset($sighting['creature_name'])) ? $sighting['creature_name']."<br><br>" : "N/A <br><br>";
+                echo "Summary of sighting: <br>";
+                echo (isset($sighting['summary'])) ? $sighting['summary']."<br><br>" : "N/A <br><br>";
+                echo "Date sighted: <br>";
+                echo (isset($sighting['date_sighted'])) ? $sighting['date_sighted']."<br><br>" : "N/A <br><br>";
+                echo "Time sighted: <br>";
+                echo (isset($sighting['time_of_day'])) ? $sighting['time_of_day']."<br><br>" : "N/A <br><br>";
+                echo "Images: <br>";
+                echo (isset($sighting['image'])) ? '<img src="data:image/jpeg;base64,'.base64_encode($sighting['image']).'"/>'. "<br><br>" : "N/A";
             }
         }
 
