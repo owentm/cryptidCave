@@ -186,6 +186,10 @@
 							return;
 						}
 					}
+
+					if (!e.defaultPrevented) {
+						alert ("Submission Successful!\nSubmit another sighting, or check out our viewing page!");
+					}
 				});
 			</script>
 			

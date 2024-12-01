@@ -7,7 +7,8 @@
     <h2><a href="index.php"><button> Go home </button></a></h2>
 </head>
 <body>
-<h1>Viewing Page Placeholder</h1>
+<h1>Viewing Page</h1>
+<p>Select a creature type to view, or view all!</p>
 <?php
 	session_start();
 
