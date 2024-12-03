@@ -195,7 +195,7 @@
 			
             </div>
             <div>
-            <img src="neuteredlilguy.png">
+            <img src="neuteredlilguy.png" class="bgImage">
         </div>
     </div>
 </body>

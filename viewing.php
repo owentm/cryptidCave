@@ -83,8 +83,14 @@ look at. -->
                 echo "Time sighted: <br>";
                 echo (isset($sighting['time_of_day'])) ? $sighting['time_of_day']."<br><br>" : "N/A <br><br>";
                 echo "Images: <br>";
-                echo (isset($sighting['image'])) ? '<img src="data:image/jpeg;base64,'.base64_encode($sighting['image']).'"/>'. "<br><br>" : "N/A";
-
+                //echo (isset($sighting['image'])) ? '<img src="data:image/jpeg;base64,'.base64_encode($sighting['image']).'"/>'. "<br><br>" : "N/A";
+				if (isset($sighting['image'])) {
+					$displayImage = $sighting['image'];
+					echo "<img src='$displayImage' class='creatureDisplay'><br>";
+				}
+				else {
+					echo "<p>No Image Submitted.</p><br>";
+				}
             }
         }
 
@@ -106,7 +112,14 @@ look at. -->
                 echo "Time sighted: <br>";
                 echo (isset($sighting['time_of_day'])) ? $sighting['time_of_day']."<br><br>" : "N/A <br><br>";
                 echo "Images: <br>";
-                echo (isset($sighting['image'])) ? '<img src="data:image/jpeg;base64,'.base64_encode($sighting['image']).'"/>'. "<br><br>" : "N/A";
+                //echo (isset($sighting['image'])) ? '<img src="data:image/jpeg;base64,'.base64_encode($sighting['image']).'"/>'. "<br><br>" : "N/A";
+				if (isset($sighting['image'])) {
+					$displayImage = $sighting['image'];
+					echo "<img src='$displayImage' class='creatureDisplay'><br>";
+				}
+				else {
+					echo "<p>No Image Submitted.</p><br>";
+				}
             }
         }
 

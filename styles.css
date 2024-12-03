@@ -11,7 +11,7 @@ h1, label {
     color: red;
 }
 
-img {
+img.bgImage {
     justify-content:center;
     filter: brightness(150%);
     height:100%;
@@ -26,4 +26,8 @@ button {
 input, select, textarea {
     background-color: gray;
     color: red;
+}
+
+img.creatureDisplay {
+	max-width: 600px;
 }
