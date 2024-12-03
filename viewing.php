@@ -72,18 +72,36 @@ look at. -->
             // At the end of each display, there's a line break so that the two entries don't get mixed up
             foreach($sightingDisplay as $sighting)
             {
+				echo <<< MULTILINE
+					<section class='creatureDisplay'>
+						<section class='cNameDisplay'>
+				MULTILINE;
                 // Have conditionals for each entry to make sure that if a user didn't enter something, everything is
                 // still formatted correctly
-                echo "Creature name: <br>";
-                echo (isset($sighting['creature_name'])) ? $sighting['creature_name']."<br><br>" : "N/A <br><br>";
-                echo "Summary of sighting: <br>";
-                echo (isset($sighting['summary'])) ? $sighting['summary']."<br><br>" : "N/A <br><br>";
-                echo "Date sighted: <br>";
-                echo (isset($sighting['date_sighted'])) ? $sighting['date_sighted']."<br><br>" : "N/A <br><br>";
-                echo "Time sighted: <br>";
-                echo (isset($sighting['time_of_day'])) ? $sighting['time_of_day']."<br><br>" : "N/A <br><br>";
-                echo "Images: <br>";
-                //echo (isset($sighting['image'])) ? '<img src="data:image/jpeg;base64,'.base64_encode($sighting['image']).'"/>'. "<br><br>" : "N/A";
+                echo "<p>Creature name: </p>";
+				$displayCname = $sighting['creature_name'];
+                echo (isset($sighting['creature_name'])) ? "<h2>$displayCname</h2>" : "No Creature Name Submitted";
+				echo "</section><section class='cInfoDisplay'>";
+				
+				echo "<section>";
+                echo "<p>Summary of sighting:<p>";
+				$displaySummary = $sighting['summary'];
+                echo (isset($sighting['summary'])) ? "<p>$displaySummary</p>" : "<p>No Summary Submitted</p>";
+				echo "</section>";
+				
+				echo "<section>";
+                echo "<p>Date sighted:</p>";
+				$displayDate = $sighting['date_sighted'];
+                echo (isset($sighting['date_sighted'])) ? "<p>$displayDate</p>" : "<p>No Date Submitted</p>";
+				echo "</section>";
+				
+				echo "<section>";
+                echo "<p>Time sighted:</p>";
+				$displayTime = $sighting['time_of_day'];
+                echo (isset($sighting['time_of_day'])) ? "<p>$displayTime</p>" : "<p>No Time of Day Submitted</p>";
+				echo "</section></section>";
+				
+                echo "<p>Images:</p>";
 				if (isset($sighting['image'])) {
 					$displayImage = $sighting['image'];
 					echo "<img src='$displayImage' class='creatureDisplay'><br>";
@@ -91,6 +109,7 @@ look at. -->
 				else {
 					echo "<p>No Image Submitted.</p><br>";
 				}
+				echo "</section>";
             }
         }
 
@@ -103,16 +122,34 @@ look at. -->
             $sightingDisplay = $sightingDataDisplay->fetchAll(PDO::FETCH_ASSOC);
             foreach($sightingDisplay as $sighting)
             {
-                echo "Creature name: <br>";
-                echo (isset($sighting['creature_name'])) ? $sighting['creature_name']."<br><br>" : "N/A <br><br>";
-                echo "Summary of sighting: <br>";
-                echo (isset($sighting['summary'])) ? $sighting['summary']."<br><br>" : "N/A <br><br>";
-                echo "Date sighted: <br>";
-                echo (isset($sighting['date_sighted'])) ? $sighting['date_sighted']."<br><br>" : "N/A <br><br>";
-                echo "Time sighted: <br>";
-                echo (isset($sighting['time_of_day'])) ? $sighting['time_of_day']."<br><br>" : "N/A <br><br>";
-                echo "Images: <br>";
-                //echo (isset($sighting['image'])) ? '<img src="data:image/jpeg;base64,'.base64_encode($sighting['image']).'"/>'. "<br><br>" : "N/A";
+                echo <<< MULTILINE
+					<section class='creatureDisplay'>
+						<section class='cNameDisplay'>
+				MULTILINE;
+                echo "<p>Creature name: </p>";
+				$displayCname = $sighting['creature_name'];
+                echo (isset($sighting['creature_name'])) ? "<h2>$displayCname</h2>" : "No Creature Name Submitted";
+				echo "</section><section class='cInfoDisplay'>";
+				
+				echo "<section>";
+                echo "<p>Summary of sighting:<p>";
+				$displaySummary = $sighting['summary'];
+                echo (isset($sighting['summary'])) ? "<p>$displaySummary</p>" : "<p>No Summary Submitted</p>";
+				echo "</section>";
+				
+				echo "<section>";
+                echo "<p>Date sighted:</p>";
+				$displayDate = $sighting['date_sighted'];
+                echo (isset($sighting['date_sighted'])) ? "<p>$displayDate</p>" : "<p>No Date Submitted</p>";
+				echo "</section>";
+				
+				echo "<section>";
+                echo "<p>Time sighted:</p>";
+				$displayTime = $sighting['time_of_day'];
+                echo (isset($sighting['time_of_day'])) ? "<p>$displayTime</p>" : "<p>No Time of Day Submitted</p>";
+				echo "</section></section>";
+				
+                echo "<p>Images:</p>";
 				if (isset($sighting['image'])) {
 					$displayImage = $sighting['image'];
 					echo "<img src='$displayImage' class='creatureDisplay'><br>";
@@ -120,6 +157,7 @@ look at. -->
 				else {
 					echo "<p>No Image Submitted.</p><br>";
 				}
+				echo "</section>";
             }
         }
 

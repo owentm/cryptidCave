@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Crypid Cave Home</title>
-    <h1>Welcome to Crypid Cave!</h1>
+    <title>Cryptid Cave Home</title>
+    <h1>Welcome to Cryptid Cave!</h1>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>

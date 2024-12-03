@@ -11,6 +11,22 @@ h1, label {
     color: red;
 }
 
+h1 {
+	font-size: 2.8rem;
+}
+
+label {
+	font-size: 1.2rem;
+}
+
+h2 {
+	font-size: 2rem;
+}
+
+p {
+	font-size: 1.2rem;
+}
+
 img.bgImage {
     justify-content:center;
     filter: brightness(150%);
@@ -21,13 +37,56 @@ img.bgImage {
 button {
     background-color: black;
     color:red;
+	padding: 5px 25px 5px 25px;
+	font-size: 1.1rem
 }
 
 input, select, textarea {
-    background-color: gray;
+    background-color: #bfbfbf;
     color: red;
+	font-size: 1.2rem;
+	margin-top: 10px;
+}
+
+input[type='file'] {
+	background-color: #0f0f0f;
 }
 
 img.creatureDisplay {
 	max-width: 600px;
+	border: 5px solid red;
+	margin-top: 10px;
+}
+
+section.creatureDisplay {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 50px;
+}
+
+section.creatureDisplay h2 {
+	font-size: 2.4rem;
+}
+
+section.creatureDisplay p, section.creatureDisplay h2 {
+	margin: 0;
+}
+
+section.cNameDisplay {
+	margin-bottom: 20px;
+}
+
+section.cInfoDisplay {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 20px;
+}
+
+section.cInfoDisplay section {
+	margin-right: 40px;
+	max-width: 400px;
+}
+
+section.cInfoDisplay section p:last-child {
+	font-weight: bold;
 }
